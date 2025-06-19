@@ -1,12 +1,13 @@
-import './App.css';
+import './css/App.css';
 import Home from './Home';
+import Signup from './components/Signup'
 
 function App() {
-  return (
-    <div className="App">
-      <Home/>
-    </div>
-  );
+    return (
+        <div>
+            <Signup />
+        </div>
+    );
 }
 
 export default App;
