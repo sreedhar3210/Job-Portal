@@ -1,0 +1,2 @@
+# Ignore the application.properties file
+/backend/job-portal/src/main/resources/application.properties
