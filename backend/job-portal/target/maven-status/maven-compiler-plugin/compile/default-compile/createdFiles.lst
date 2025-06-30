@@ -1,5 +1,6 @@
 com/JobPortal/repository/UserRepository.class
 com/JobPortal/models/User.class
+com/JobPortal/response/ResponseStatus.class
 com/JobPortal/job_portal/JobPortalApplication.class
 com/JobPortal/job_portal/Test.class
 com/JobPortal/utils/DBConnection.class

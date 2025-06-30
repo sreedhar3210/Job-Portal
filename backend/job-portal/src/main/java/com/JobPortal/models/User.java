@@ -11,10 +11,14 @@ public class User {
 
     private String firstname;
     private String lastname;
+    private String email;
+    private String password;
 
-    public User(String firstname, String lastname){
+    public User(String firstname, String lastname, String email, String password){
         this.firstname = firstname;
         this.lastname = lastname;
+        this.email = email;
+        this.password = password;
     }
 
     public String getFirstname(){
@@ -25,6 +29,13 @@ public class User {
         return lastname;
     }
 
+    public String getEmail(){
+        return email;
+    }
+
+    public String getPassword(){
+        return password;
+    }
     // @Id
     // @GeneratedValue(strategy = GenerationType.AUTO)
     // @Column(name = "Id")
