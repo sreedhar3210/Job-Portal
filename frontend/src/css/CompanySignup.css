@@ -1,0 +1,55 @@
+.company-registration-container {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.company-registration-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.company-label {
+    display: block;
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+.company-input,
+.company-select,
+.company-textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.company-textarea {
+    resize: vertical;
+    height: 80px;
+}
+
+.company-next-button,
+.company-prev-button,
+.company-submit-button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.company-prev-button {
+    background-color: #6c757d;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+}

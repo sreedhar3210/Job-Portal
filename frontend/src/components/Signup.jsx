@@ -1,146 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import UserSignup from './UserSignup';
+import CompanySignup from './CompanySignup';
 import '../css/Signup.css';
 
 function Signup() {
 
-	const navigate = useNavigate();
-	const [firstname, setFirstname] = useState('');
-	const [lastname, setLastname] = useState('');
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [confirmPassword, setConfirmPassword] = useState('');
-	const [isSubmitted, setIsSubmitted] = useState(false);
+	const [isUserSignup, setIsUserSignup] = useState(false);
+	const [isCompanySignup, setIsCompanySignup] = useState(false);
 
-	const handleFirstnameOnChange = (event) => setFirstname(event.target.value);
-	const handleLastnameOnChange  = (event) => setLastname(event.target.value);
-	const handleEmailOnChange = (event) => setEmail(event.target.value);
-	const handlePasswordOnChange = (event) => setPassword(event.target.value);
-	const handleConfirmPasswordOnChange = (event) => setConfirmPassword(event.target.value);
-
-	const verifyPassword = () => {
-		return password === confirmPassword;
-	}
-
-	const handleDetailsSubmit = () => {
-		console.log('>>> firstname is ', firstname, ' lastname is ', lastname);
-		console.log('>>> email is ', email, ' password is ', password);
-		if(!verifyPassword){
-			alert('Password and Re-entered passwords do not match');
-		}
-		else{
-			setIsSubmitted(true);
-		}
-		
-	}
-
-	useEffect(() => {
-		if (isSubmitted) {
-			const insertUser = async () => {
-				let options = {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({
-						firstname: firstname,
-						lastname: lastname,
-						email: email,
-						password: password
-					})
-				};
-
-				const response = await fetch('http://localhost:8080/api/insert-user', options);
-				const responseText = await response.json();
-				if(response.status === 201){
-					if(responseText.status === "UserWithSameEmailFound"){
-						alert('There is an existing user with same email, please use different email');
-						setEmail("");
-						setIsSubmitted(false);
-					}
-					else{
-						alert('Your user has been created you can login with that user now');
-						navigate("/signin");
-					}
-				}
-				else{
-					alert('An error occured could you please try again');
-					window.location.reload();
-				}
-			};
-
-			insertUser();
-		}
-		// eslint-disable-next-line
-	}, [isSubmitted]);
-
+	const handleRegisterAsUser = (event) => setIsUserSignup(true);
+	const handleRegisterAsCompany = (event) => setIsCompanySignup(true);
+	
 	return (
-
-		<div className="signup-wrapper">
-		  <div className="signup-card">
-		    <h2 className="signup-title">Create Account</h2>
-
-		    <label className="signup-label">Firstname</label>
-		    <input
-		      className="signup-input"
-		      type="text"
-		      onChange={handleFirstnameOnChange}
-		      value={firstname}
-		      placeholder="Enter your Firstname"
-		    />
-
-		    <label className="signup-label">Lastname</label>
-		    <input
-		      className="signup-input"
-		      type="text"
-		      onChange={handleLastnameOnChange}
-		      value={lastname}
-		      placeholder="Enter your Lastname"
-		    />
-
-		    <label className="signup-label">Email</label>
-		    <input
-		      className="signup-input"
-		      type="text"
-		      onChange={handleEmailOnChange}
-		      value={email}
-		      placeholder="Enter your Email"
-		    />
-
-		    <label className="signup-label">Password</label>
-		    <input
-		      className="signup-input"
-		      type="password"
-		      onChange={handlePasswordOnChange}
-		      value={password}
-		      placeholder="Enter your Password"
-		    />
-
-		    <label className="signup-label">Re-enter Password</label>
-		    <input
-		      className="signup-input"
-		      type="password"
-		      onChange={handleConfirmPasswordOnChange}
-		      value={confirmPassword}
-		      placeholder="Re-enter your Password"
-		    />
-
+		<div className="register-container">
+		  <div className="register-card" hidden={isUserSignup || isCompanySignup}>
+		    <h2 className="register-heading">Choose Registration Type</h2>
 		    <button
-		      className="signup-button"
-		      type="submit"
-		      onClick={handleDetailsSubmit}
-		    >
-		      Submit
+		      className="register-button"
+		      type="button"
+		      onClick={handleRegisterAsUser}>
+		      Register as Applicant
 		    </button>
+		    <button
+		      className="register-button"
+		      type="button"
+		      onClick={handleRegisterAsCompany}>
+		      Register as Company
+		    </button>
+		  </div>
 
-		    <p className="signup-footer">
-		      Already have an account? <a href="/signin">Sign In</a>
-		    </p>
+		  <div hidden={!isUserSignup}>
+		    <UserSignup />
+		  </div>
+
+		  <div hidden={!isCompanySignup}>
+		    <CompanySignup />
 		  </div>
 		</div>
-
 	);
-
 }
 
 export default Signup;

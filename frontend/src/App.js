@@ -1,7 +1,8 @@
 import './css/App.css';
-// import Home from './Home';
+import Home from './components/Home';
 import Signin from './components/Signin'
 import Signup from './components/Signup'
+import CompanySignup from './components/CompanySignup';
 import {
   BrowserRouter,
   Routes,
@@ -15,6 +16,8 @@ function App() {
             <Routes>
               <Route path="/signin" element={<Signin/>} />
               <Route path="/signup" element={<Signup/>} />
+              <Route path="/" element={<Home/>} />
+              <Route path="/company-signup" element={<CompanySignup/>} />
             </Routes>
           </div>
         </BrowserRouter>
