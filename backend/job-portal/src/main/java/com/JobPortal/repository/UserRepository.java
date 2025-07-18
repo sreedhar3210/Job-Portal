@@ -10,16 +10,12 @@ import java.sql.Statement;
 
 public class UserRepository{
 
-	//using a static id which is added every time a record is created, to maintain id.
-
 	public static Integer insertUser(User user) throws SQLException {
-		Integer rowsInserted = 0, newId;
+		Integer rowsInserted = 0;
 		Connection con = DBConnection.getConnection();
 		Statement sqlStatement = con.createStatement();
 
 		try{
-			newId = getUserSize() + 1;
-
 			User userWithSameEmail = getUserByEmail(user.getEmail());
 
 			if(userWithSameEmail != null){
@@ -27,8 +23,7 @@ public class UserRepository{
 			}
 			else{
 				//you need to enclose the variables inside single quotes in the query.
-				String sqlQuery = "INSERT INTO user (id, firstname, lastname, email, password) VALUES (" 
-								    + newId + ", '" 
+				String sqlQuery = "INSERT INTO user (firstname, lastname, email, password) VALUES ('"
 								    + user.getFirstname() + "', '" 
 								    + user.getLastname() + "', '" 
 								    + user.getEmail() + "', '" 
@@ -36,7 +31,7 @@ public class UserRepository{
 
 				rowsInserted = sqlStatement.executeUpdate(sqlQuery);
 			}
-			System.out.println(">>>> " + rowsInserted + "Rows are inserted");
+			System.out.println(">>>> " + rowsInserted + " Rows are inserted");
 		} catch (SQLException sqlExc){
 			System.out.println(">>> Exception in UserRepository class InsertUser method" + sqlExc);
 			throw sqlExc;
@@ -101,15 +96,23 @@ public class UserRepository{
 	    return user;
 	}
 
-	// public static Boolean verifyUserCreds(User user) throws SQLException {
-	// 	String sqlQuery = "SELECT id, firstname, lastname "
-	// 					+ "FROM user "
-	// 					+ "WHERE email = '" + user.getEmail() + "' AND password = '" + user.getPassword() + "';";
-
-
-	// 	try{
-	// 		Statement sqlStatement = con.createStatement();
-
-	// 	}
-	// }
+	public static Boolean verifyUserCreds(User user) throws SQLException {
+		Boolean isValidCreds = false;
+		User dbUser = null;
+		try{
+			dbUser = getUserByEmail(user.getEmail());
+		} catch(SQLException sqlExc){
+			System.out.println(">>> Exception in UserRepository class, verifyUserCreds method " + sqlExc);
+			throw sqlExc;
+		}
+		System.out.println(">>> dbUser= " + dbUser);
+		System.out.println(">>> dbUser's password is " + dbUser.getPassword() + " users password = " + user.getPassword());
+		//In java string1 == string2 doesn't work as strings are compared to references in this case
+		//so we need to use the string.equals method.
+		if(dbUser != null && dbUser.getPassword().equals(user.getPassword())){
+			System.out.println(">>> user is verified correctly, inside if loop");
+			isValidCreds = true;
+		}		
+		return isValidCreds;
+	}
 }

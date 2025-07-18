@@ -1,8 +1,16 @@
+/Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/controllers/CompanyController.java
+/Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/controllers/SelectOptionsController.java
 /Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/controllers/UserController.java
 /Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/job_portal/Hello.java
 /Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/job_portal/JobPortalApplication.java
 /Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/job_portal/Test.java
+/Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/models/Company.java
+/Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/models/OptionCategory.java
+/Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/models/SelectOptions.java
 /Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/models/User.java
+/Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/repository/CompanyRepository.java
+/Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/repository/OptionCategoryRepository.java
+/Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/repository/SelectOptionsRepository.java
 /Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/repository/UserRepository.java
 /Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/response/ResponseStatus.java
 /Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/utils/DBConnection.java
