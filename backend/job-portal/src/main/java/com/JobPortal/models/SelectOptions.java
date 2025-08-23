@@ -4,19 +4,16 @@ public class SelectOptions {
 
 	private Integer id;
 	private String label;
-	private String value;
 	private Integer categoryId;
 
-	public SelectOptions(String label, String value, Integer categoryId){
+	public SelectOptions(String label, Integer categoryId){
 		this.label = label;
-		this.value = value;
 		this.categoryId = categoryId;
 	}
 
-	public SelectOptions(Integer id, String label, String value, Integer categoryId){
+	public SelectOptions(Integer id, String label, Integer categoryId){
 		this.id = id;
 		this.label = label;
-		this.value = value;
 		this.categoryId = categoryId;
 	}
 
@@ -28,10 +25,6 @@ public class SelectOptions {
 		return label;
 	}
 
-	public String getValue(){
-		return value;
-	}
-
 	public Integer getCategoryId(){
 		return categoryId;
 	}
@@ -39,6 +32,6 @@ public class SelectOptions {
 	//There is no project use with this method.
 	//This was used for displaying the selectOptions for debugging purposes.
 	public void displaySelectOptions(){
-		System.out.println(">>>> label= " + label + " value= " + value + " categoryId= " + categoryId);
+		System.out.println(">>>> label= " + label + " categoryId= " + categoryId);
 	}
 }

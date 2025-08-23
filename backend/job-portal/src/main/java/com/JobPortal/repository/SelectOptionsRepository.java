@@ -33,7 +33,7 @@ public class SelectOptionsRepository {
 				optionCategoryIdNameMap.put(optionCategoryList.get(i).getId(), optionCategoryList.get(i).getName());
 			}
 			inClause+=")";
-			String sqlQuery = "SELECT id, label, value, category_id "
+			String sqlQuery = "SELECT id, label, category_id "
 								+ "FROM select_options "
 								+ "WHERE category_id IN " + inClause + ";";
 			Connection con = DBConnection.getConnection();
@@ -44,9 +44,8 @@ public class SelectOptionsRepository {
 				while(rs.next()){
 					Integer id = rs.getInt(1);
 					String label = rs.getString(2);
-					String value = rs.getString(3);
-					Integer categoryId = rs.getInt(4);
-					SelectOptions selectOptions = new SelectOptions(id, label, value, categoryId);
+					Integer categoryId = rs.getInt(3);
+					SelectOptions selectOptions = new SelectOptions(id, label, categoryId);
 					//fetching the categoryName from the map we constructed before.
 					String categoryName = optionCategoryIdNameMap.get(categoryId);
 					//adding this selectOptions to corresponding CategoryName's SelectOptions List.
