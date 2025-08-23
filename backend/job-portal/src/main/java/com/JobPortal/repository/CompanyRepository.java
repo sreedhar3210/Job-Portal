@@ -18,10 +18,10 @@ public class CompanyRepository{
 		try{
 			String sqlQuery = "INSERT INTO company (company_name, industry_type, company_url, company_size, "
 								+ "company_description, company_email, company_password) VALUES ('"
-								+ company.getCompanyName() + "', '" 
-							    + company.getIndustryType() + "', '" 
-							    + company.getCompanyURL() + "', '"
-							    + company.getCompanySize() + "', '" 
+								+ company.getCompanyName() + "', " 
+							    + company.getIndustryType() + ", '" 
+							    + company.getCompanyURL() + "', "
+							    + company.getCompanySize() + ", '" 
 							    + company.getCompanyDescription() + "', '" 
 							    + company.getCompanyEmail() + "', '"  
 							    + company.getCompanyPassword() + "')";

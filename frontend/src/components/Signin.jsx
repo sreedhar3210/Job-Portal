@@ -59,6 +59,7 @@ function Signin(){
 				console.log('>>>>> responseText: ', responseText);
 				if(response.status === 200){
 					if(responseText.status === "Found"){
+						localStorage.setItem('isUserSignIn', isUserSignIn);
 						navigate("/");
 					}
 					else{

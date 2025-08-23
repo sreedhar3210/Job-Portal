@@ -3,8 +3,10 @@ com/JobPortal/models/OptionCategory.class
 com/JobPortal/models/Company.class
 com/JobPortal/models/User.class
 com/JobPortal/repository/CompanyRepository.class
+com/JobPortal/repository/JobRepository.class
 com/JobPortal/job_portal/Test.class
 com/JobPortal/repository/SelectOptionsRepository.class
+com/JobPortal/controllers/JobController.class
 com/JobPortal/controllers/CompanyController.class
 com/JobPortal/controllers/SelectOptionsController.class
 com/JobPortal/repository/UserRepository.class
@@ -12,5 +14,6 @@ com/JobPortal/repository/OptionCategoryRepository.class
 com/JobPortal/response/ResponseStatus.class
 com/JobPortal/job_portal/JobPortalApplication.class
 com/JobPortal/utils/DBConnection.class
+com/JobPortal/models/Job.class
 com/JobPortal/controllers/UserController.class
 com/JobPortal/job_portal/Hello.class
