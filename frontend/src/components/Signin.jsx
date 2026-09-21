@@ -55,11 +55,14 @@ function Signin(){
 				
 				const responseText = await response.json();
 
-				console.log('>>>>> response: ', response);
+				console.log('>>>>> 2. signin response: ', response);
 				console.log('>>>>> responseText: ', responseText);
 				if(response.status === 200){
 					if(responseText.status === "Found"){
-						localStorage.setItem('isUserSignIn', isUserSignIn);
+						localStorage.setItem('IsUserSignIn', responseText.isUserSignin);
+						localStorage.setItem('IsCompanySignIn', responseText.isCompanySignin);
+						localStorage.setItem('CompanyId', responseText.company.id);
+						localStorage.setItem('CompanyName', responseText.company.companyName);
 						navigate("/");
 					}
 					else{

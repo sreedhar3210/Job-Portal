@@ -4,6 +4,7 @@ package com.JobPortal.controllers;
 import com.JobPortal.models.Company;
 import com.JobPortal.repository.CompanyRepository;
 import com.JobPortal.response.ResponseStatus;
+import com.JobPortal.response.LoginResponse;
 
 import java.sql.SQLException;
 
@@ -35,19 +36,41 @@ public class CompanyController {
 		}
 	}
 
+	// @PostMapping("/verify-company-credentials")
+    // public ResponseEntity<ResponseStatus> verifyCompanyCreds(@RequestBody Company company) throws SQLException{
+    //     ResponseStatus resStatus;
+    //     try{
+    //         Boolean isValidCreds = CompanyRepository.verifyCompanyCreds(company);
+    //         if(isValidCreds)            resStatus = new ResponseStatus("Found", "Company exists");
+    //         else                        resStatus = new ResponseStatus("NotFound", 
+    //         											 "Company with provided credentials do not exist");
+    //         return ResponseEntity.status(HttpStatus.OK).body(resStatus);
+    //     } catch (SQLException sqlExc) {
+    //         System.out.println(">>> Exception in UserController class " + sqlExc);
+    //         resStatus = new ResponseStatus("Error", "User Insertion is failed with Error: " + sqlExc.getMessage());
+    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resStatus);
+    //     }
+    // }
+
 	@PostMapping("/verify-company-credentials")
-    public ResponseEntity<ResponseStatus> verifyCompanyCreds(@RequestBody Company company) throws SQLException{
-        ResponseStatus resStatus;
+    public ResponseEntity<LoginResponse> verifyCompanyCreds(@RequestBody Company company) throws SQLException{
+		String companyEmail = company.getCompanyEmail();
+		System.out.println(">>>>>> 1. inside verifyCompanyCreds companyEmail is: " + companyEmail);
+        LoginResponse loginResponse;
         try{
             Boolean isValidCreds = CompanyRepository.verifyCompanyCreds(company);
-            if(isValidCreds)            resStatus = new ResponseStatus("Found", "Company exists");
-            else                        resStatus = new ResponseStatus("NotFound", 
-            											 "Company with provided credentials do not exist");
-            return ResponseEntity.status(HttpStatus.OK).body(resStatus);
+			Company companyDetails = CompanyRepository.getCompanyByEmail(companyEmail);
+			String status = isValidCreds ? "Found" : "NotFound";
+			String message = isValidCreds ? "Company exists" : "Company with provided credentials do not exist";
+			loginResponse = new LoginResponse(false, true, status, message, null, companyDetails);
+            return ResponseEntity.status(HttpStatus.OK).body(loginResponse);
         } catch (SQLException sqlExc) {
             System.out.println(">>> Exception in UserController class " + sqlExc);
-            resStatus = new ResponseStatus("Error", "User Insertion is failed with Error: " + sqlExc.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resStatus);
+			String status = "Error";
+			String message = "User Insertion is failed with Error: " + sqlExc.getMessage();
+			loginResponse = new LoginResponse(false, true, status, message, null, null);
+            // resStatus = new ResponseStatus("Error", "User Insertion is failed with Error: " + sqlExc.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(loginResponse);
         }
     }
 }

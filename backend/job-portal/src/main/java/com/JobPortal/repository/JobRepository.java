@@ -18,7 +18,7 @@ public class JobRepository{
       	
       	try{
           	String sqlQuery = "INSERT INTO Job (role_id, description, responsibilities, requirements, "
-              									+ "location_id, employement_type_id, experience_level_id, "
+              									+ "location_id, employment_type_id, experience_level_id, "
           										+ "salary, company_id, posted_date, last_date) VALUES ("
               									+ job.getRoleId() + ", '"
               									+ job.getDescription() + "', '"
@@ -28,9 +28,10 @@ public class JobRepository{
               									+ job.getEmploymentTypeId() + ", "
               									+ job.getExperienceLevelId() + ", "
               									+ job.getSalary() + ", "
-              									+ job.getCompanyId() + ", "
-              									+ job.getPostedDate() + ", "
-              									+ job.getLastDate()+ ")";
+              									+ job.getCompanyId() + ", '"
+              									+ job.getPostedDate() + "', '"
+              									+ job.getLastDate()+ "')";
+			System.out.println(">>>>>> sqlQuery is: " + sqlQuery);
           rowsInserted = sqlStatement.executeUpdate(sqlQuery);
           System.out.println(">>>>>> " + rowsInserted +" rows inserted");
         } catch(SQLException sqlExc){

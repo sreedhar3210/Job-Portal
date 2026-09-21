@@ -15,5 +15,6 @@
 /Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/repository/OptionCategoryRepository.java
 /Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/repository/SelectOptionsRepository.java
 /Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/repository/UserRepository.java
+/Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/response/LoginResponse.java
 /Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/response/ResponseStatus.java
 /Users/sreedhar.palampalli/Desktop/Projects/Job-Portal/backend/job-portal/src/main/java/com/JobPortal/utils/DBConnection.java

@@ -1,5 +1,6 @@
 com/JobPortal/models/SelectOptions.class
 com/JobPortal/models/OptionCategory.class
+com/JobPortal/response/LoginResponse.class
 com/JobPortal/models/Company.class
 com/JobPortal/models/User.class
 com/JobPortal/repository/CompanyRepository.class
