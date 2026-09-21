@@ -22,14 +22,13 @@ import org.springframework.http.HttpStatus;
 public class JobController {
   	
   	@PostMapping("/post-job")
-  	public ResponseEntity<ResponseStatus> postJob(@RequestBody String jobString) throws SQLException{
-        System.out.println(">>>> Inside JobController class");
-        System.out.println(">>>> jobString= " + jobString);
-        Job job = new Job();
+  	public ResponseEntity<ResponseStatus> postJob(@RequestBody Job job) throws SQLException{
+        System.out.println(">>>> 3. Inside JobController class");
       	ResponseStatus resStatus;
       	try{
           	JobRepository.insertJob(job);
           	resStatus = new ResponseStatus("OK", "Job is posted");
+			System.out.println(">>>>>>> everything is completed just returning from postJob");
           	return ResponseEntity.status(HttpStatus.OK).body(resStatus);
         } catch(SQLException sqlExc){
           	System.out.println(">>>>> Exception in JobController class, postJob method: " + sqlExc);
