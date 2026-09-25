@@ -4,9 +4,11 @@ public class Company {
 
 	private Integer id;
 	private String companyName;
-	private Integer industryType;
+	private Integer industryTypeId;
+	private String industryType;
 	private String companyURL;
-	private Integer companySize;
+	private Integer companySizeId;
+	private String companySize;
 	private String companyDescription;
 	private String companyEmail;
 	private String companyPassword;
@@ -14,23 +16,27 @@ public class Company {
 	//This no-args constructor is needed for deserializing to this object.
 	public Company(){}
 
-	public Company(Integer id, String companyName, Integer industryType, String companyURL,
-					Integer companySize, String companyDescription, String companyEmail, String companyPassword){
-		this(companyName, industryType, companyURL, companySize, companyDescription, companyEmail, companyPassword);
+	public Company(Integer id, String companyName, Integer industryTypeId, String companyURL,
+					Integer companySizeId, String companyDescription, String companyEmail, String companyPassword){
+		this(companyName, industryTypeId, companyURL, companySizeId, companyDescription, companyEmail, companyPassword);
 		this.id = id;	
 	}
 
-	public Company(String companyName, Integer industryType, String companyURL,
-					Integer companySize, String companyDescription, String companyEmail, String companyPassword){
+	public Company(String companyName, Integer industryTypeId, String companyURL,
+					Integer companySizeId, String companyDescription, String companyEmail, String companyPassword){
 		this.companyName = companyName;
-		this.industryType = industryType;
+		this.industryTypeId = industryTypeId;
 		this.companyURL = companyURL;
-		this.companySize = companySize;
+		this.companySizeId = companySizeId;
 		this.companyDescription = companyDescription;
 		this.companyEmail = companyEmail;
 		this.companyPassword = companyPassword;
 	}
-	
+
+	public void setId(Integer companyId) {
+		this.id = companyId;
+	}
+
 	public Integer getId(){
 		return id;
 	}
@@ -39,7 +45,15 @@ public class Company {
 		return companyName;
 	}
 
-	public Integer getIndustryType(){
+	public Integer getIndustryTypeId(){
+		return industryTypeId;
+	}
+
+	public void setIndustryType(String industryType) {
+		this.industryType = industryType;
+	}
+
+	public String getIndustryType() {
 		return industryType;
 	}
 
@@ -47,7 +61,15 @@ public class Company {
 		return companyURL;
 	}
 
-	public Integer getCompanySize(){
+	public Integer getCompanySizeId(){
+		return companySizeId;
+	}
+
+	public void setCompanySize(String companySize) {
+		this.companySize = companySize;
+	}
+
+	public String getCompanySize() {
 		return companySize;
 	}
 

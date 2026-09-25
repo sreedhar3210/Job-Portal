@@ -105,9 +105,9 @@ function CompanySignup() {
 					},
 					body: JSON.stringify({
 						companyName: companyName,
-						industryType: selectedIndustryType.id,
+						industryTypeId: selectedIndustryType.id,
 						companyURL: companyURL,
-						companySize: selectedCompanySize.id,
+						companySizeId: selectedCompanySize.id,
 						companyDescription: companyDescription,
 						companyEmail: companyEmail,
 						companyPassword: companyPassword

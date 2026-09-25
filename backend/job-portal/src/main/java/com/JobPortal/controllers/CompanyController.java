@@ -5,6 +5,7 @@ import com.JobPortal.models.Company;
 import com.JobPortal.repository.CompanyRepository;
 import com.JobPortal.response.ResponseStatus;
 import com.JobPortal.response.LoginResponse;
+import com.JobPortal.IntegrationServices.SalesforceIntegrationService;
 
 import java.sql.SQLException;
 
@@ -22,12 +23,24 @@ import org.springframework.http.HttpStatus;
 @CrossOrigin(origins = {"http://localhost:3000"})
 public class CompanyController {
 
+    private final SalesforceIntegrationService salesforceService;
+
+    public CompanyController(SalesforceIntegrationService salesforceService) {
+        this.salesforceService = salesforceService;
+    }
+
 	@PostMapping("/add-company")
 	public ResponseEntity<ResponseStatus> insertCompany(@RequestBody Company company) throws SQLException{
 		ResponseStatus resStatus;
 		try{
-			CompanyRepository.insertCompany(company);
+			Company insertedCompany = CompanyRepository.insertCompany(company);
+            company.setId(insertedCompany.getId());
+
 			resStatus = new ResponseStatus("CompanyInserted", "Company is Registered");
+
+            System.out.println(">>>>> 1. after inserting company in the local database");
+            salesforceService.createSalesforceAccount(insertedCompany);
+
 			return ResponseEntity.status(HttpStatus.OK).body(resStatus);
 		} catch(SQLException sqlExc){
 			System.out.println(">>>>> Exception in CompanyController class, insertCompany method: " + sqlExc);
