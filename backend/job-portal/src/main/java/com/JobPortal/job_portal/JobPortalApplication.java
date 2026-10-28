@@ -13,17 +13,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-@SpringBootApplication(
-	exclude = {
-		org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration.class,
-		org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration.class
-	}
-)
 
+@SpringBootApplication
 //@EnableAutoConfiguration
 //we need to specify the entities folder in basePackages so that they will become visible to this main file.
 @ComponentScan(basePackages = {"com.JobPortal"})
+@EntityScan(basePackages = {"com.JobPortal.models"}) // Tell Hibernate where your @Entity classes are!
 public class JobPortalApplication {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException{
