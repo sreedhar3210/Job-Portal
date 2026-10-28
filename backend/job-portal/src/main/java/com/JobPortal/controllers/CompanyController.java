@@ -2,7 +2,9 @@
 package com.JobPortal.controllers;
 
 import com.JobPortal.models.Company;
+import com.JobPortal.models.TransactionLog;
 import com.JobPortal.repository.CompanyRepository;
+import com.JobPortal.repository.TransactionLogRepository;
 import com.JobPortal.response.ResponseStatus;
 import com.JobPortal.response.LoginResponse;
 import com.JobPortal.IntegrationServices.SalesforceIntegrationService;
@@ -23,23 +25,61 @@ import org.springframework.http.HttpStatus;
 @CrossOrigin(origins = {"http://localhost:3000"})
 public class CompanyController {
 
+    private final TransactionLogRepository logRepo;
     private final SalesforceIntegrationService salesforceService;
 
-    public CompanyController(SalesforceIntegrationService salesforceService) {
+    //This constructor is automatically handled by spring boot as this class has RestController annotation.
+    public CompanyController(TransactionLogRepository logRepo,
+                                SalesforceIntegrationService salesforceService) {
+
+        this.logRepo = logRepo;
         this.salesforceService = salesforceService;
     }
 
 	@PostMapping("/add-company")
 	public ResponseEntity<ResponseStatus> insertCompany(@RequestBody Company company) throws SQLException{
 		ResponseStatus resStatus;
+        String salesforceAccountId;
+
 		try{
-			Company insertedCompany = CompanyRepository.insertCompany(company);
+            Company insertedCompany = null;
+
+            try {
+                insertedCompany = CompanyRepository.insertCompany(company);
+            } catch(Exception exc) {
+                throw exc;
+            }
+
+            TransactionLog trxnLogSavedtoDB = new TransactionLog(
+                "MYSQL Local database",
+                "Insert",
+                (insertedCompany.getId() != null ? "SUCCESS" : "FAILURE"),
+                (insertedCompany.getId() != null ? insertedCompany.getId() : "-1").toString(),
+                "Company record is saved to local database succesfully"
+            );
+
+            logRepo.saveTrxnLog(trxnLogSavedtoDB);
+
             company.setId(insertedCompany.getId());
 
 			resStatus = new ResponseStatus("CompanyInserted", "Company is Registered");
 
-            System.out.println(">>>>> 1. after inserting company in the local database");
-            salesforceService.createSalesforceAccount(insertedCompany);
+            // System.out.println(">>>>> 1. after inserting company in the local database");
+            try{
+                salesforceAccountId = salesforceService.createSalesforceAccount(insertedCompany);
+            } catch(Exception exc) {
+                throw exc;
+            }
+
+            TransactionLog trxnLogSavedtoSalesforce = new TransactionLog(
+                "Salesforce Integration",
+                "Insert",
+                "SUCCESS",
+                salesforceAccountId,
+                "Company record is saved to local database succesfully"
+            );
+
+            logRepo.saveTrxnLog(trxnLogSavedtoSalesforce);
 
 			return ResponseEntity.status(HttpStatus.OK).body(resStatus);
 		} catch(SQLException sqlExc){

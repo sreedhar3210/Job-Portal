@@ -9,7 +9,8 @@ function Profile() {
 
     const handleLogout = () => {
         localStorage.clear();
-        
+        // Reloading this page will make it redirect to signin page, as localStoreage is cleared.
+        window.location.reload();
     }
 
     return (

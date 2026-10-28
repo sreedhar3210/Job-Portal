@@ -8,20 +8,40 @@ import Profile from './components/Profile';
 import {
   BrowserRouter,
   Routes,
-  Route
+  Route,
+  Outlet,
+  Navigate
 } from 'react-router-dom';
 
 function App() {
+
+    // 1. Create the ProtectedRoute wrapper component
+    const ProtectedRoute = () => {
+        // Replace this with your actual authentication logic.
+        // For example, checking a token in localStorage or a Redux store.
+        const isUserSignin = localStorage.getItem("IsCompanySignIn");
+        const isCompanySignin = localStorage.getItem("IsCompanySignIn");
+
+        // If authenticated, render the child routes (Outlet). 
+        // If not, redirect to the signin page.
+        return isUserSignin || isCompanySignin ? <Outlet /> : <Navigate to="/signin" replace />;
+    };
+
     return (
         <BrowserRouter>
           <div>
             <Routes>
+              {/* PUBLIC ROUTES - Accessible without logging in */}
               <Route path="/signin" element={<Signin/>} />
               <Route path="/signup" element={<Signup/>} />
-              <Route path="/" element={<Home/>} />
               <Route path="/company-signup" element={<CompanySignup/>} />
-              <Route path="/post-job" element={<Job/>} />
-              <Route path="/profile" element={<Profile/>} />
+
+              {/* PROTECTED ROUTES - Requires authentication */}
+              <Route element={<ProtectedRoute />}>
+                <Route path="/" element={<Home/>} />
+                <Route path="/post-job" element={<Job/>} />
+                <Route path="/profile" element={<Profile/>} />
+              </Route>
             </Routes>
           </div>
         </BrowserRouter>

@@ -1,6 +1,7 @@
 package com.JobPortal.IntegrationServices;
 
 import com.JobPortal.models.Company;
+import com.JobPortal.response.SalesforceResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -57,12 +58,9 @@ public class SalesforceIntegrationService {
 
     // @Async
     // public void createSalesforceAccount(String companyName, String companyWebsite) {
-    public void createSalesforceAccount(Company company) {
+    public String createSalesforceAccount(Company company) {
 
-        System.out.println(">>>>>> 3. inside SalesforceIntegrationService class createSalesforceAccount method");
         String accessToken = getSalesforceAccessToken();
-
-        System.out.println(">>>>>>> access token is: " + accessToken);
 
         // STEP 2: Create the Account in Salesforce (JSON)
         String companyApiUrl = domain + "/services/apexrest/" + "create-company";
@@ -78,16 +76,19 @@ public class SalesforceIntegrationService {
         companyData.put("Email", company.getCompanyEmail());
         companyData.put("Password", company.getCompanyPassword());
 
-        webClient.post()
+        SalesforceResponse response = webClient.post()
                 .uri(companyApiUrl)
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .bodyValue(companyData)
                 .retrieve()
-                .bodyToMono(String.class)
-                .subscribe(
-                        response -> System.out.println("Success! Account Created ID: " + response),
-                        error -> System.err.println("Salesforce API Error: " + error.getMessage())
-                );
+                .bodyToMono(SalesforceResponse.class)
+                .block();
+
+        if (response != null) {
+            return response.getAccountId();
+        }
+
+        return "-1";
     }
 }
